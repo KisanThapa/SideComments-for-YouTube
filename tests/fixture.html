@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>YouTube layout test fixture</title>
+<style>
+  * { box-sizing: border-box; }
+  :root { font-family: Arial, sans-serif; --yt-spec-base-background: #fff; --ytd-masthead-height: 56px; }
+  body { margin: 0; background: #fafafa; color: #151515; }
+  header { height: 56px; padding: 17px 28px; background: white; border-bottom: 1px solid #ddd; font-weight: bold; }
+  header span { float: right; font-size: 12px; font-weight: normal; color: #777; }
+  ytd-watch-flexy, ytd-comments { display: block; }
+  #columns { display: flex; gap: 24px; padding: 24px; align-items: flex-start; }
+  #primary { flex: 1; min-width: 0; }
+  #secondary { width: 400px; flex-shrink: 0; }
+  #player { aspect-ratio: 16 / 9; background: #17232e; color: #c9e7ee; display: grid; place-items: center; border-radius: 12px; }
+  #full-bleed-container { display: none; }
+  [theater] #full-bleed-container { display: grid; height: 410px; place-items: center; background: #17232e; color: #c9e7ee; }
+  [theater] #player { display: none; }
+  #description { padding: 20px; border-radius: 12px; background: #eee; margin: 20px 0; }
+  h1 { font-size: 22px; } h2 { font-size: 20px; }
+  ytd-comments-header-renderer { display: block; padding: 5px 0 15px; }
+  .comment { padding: 18px 0; border-bottom: 1px solid #eee; line-height: 1.5; }
+  .comment p { margin: 6px 0; font-size: 14px; }
+  button { border: 0; background: #eee; padding: 7px 12px; border-radius: 20px; cursor: pointer; }
+  textarea { width: 100%; border: 0; border-bottom: 1px solid #aaa; padding: 12px 0; font: inherit; background: transparent; }
+  .recommendation { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; font-size: 14px; }
+  .thumbnail { width: 160px; height: 90px; background: #c8d9e3; border-radius: 8px; flex-shrink: 0; }
+  .recommendation:nth-child(even) .thumbnail { background: #ded1c5; }
+  .recommendation p { color: #777; }
+  #extra { margin-bottom: 15px; padding: 14px; background: #eee; border-radius: 12px; }
+  #related-skeleton { display: none; }
+  @media (max-width: 999px) { #columns { display: block; } #secondary { width: 100%; } }
+</style>
+<header>YouTube <span>LOCAL TEST FIXTURE · no live video or comments</span></header>
+<ytd-watch-flexy>
+  <div id="full-bleed-container">THEATER PLAYER</div>
+  <div id="columns">
+    <div id="primary">
+      <div id="player">VIDEO PLAYER</div>
+      <div id="below">
+        <h1>A conversation worth watching</h1>
+        <p>Example channel · Subscribe</p>
+        <div id="description">Video description and channel information stay below the player.</div>
+        <div class="box">
+          <ytd-comments id="comments">
+            <ytd-comments-header-renderer><h2>Comments</h2><button id="sort">Sort by</button></ytd-comments-header-renderer>
+            <textarea placeholder="Add a comment…" aria-label="Add a comment"></textarea>
+            <div id="threads"></div>
+          </ytd-comments>
+        </div>
+        <div id="after-comments">Content after the original comments slot</div>
+      </div>
+    </div>
+    <div id="secondary"><div id="secondary-inner">
+      <div id="extra">Other sidebar widgets stay in place</div>
+      <div id="related"><h2>Recommended videos</h2><div id="recommendations"></div></div>
+      <div id="after-related">Content after recommendations</div>
+    </div></div>
+  </div>
+  <div id="related-skeleton"><div id="related">Loading placeholder</div></div>
+</ytd-watch-flexy>
+<script>
+  for (let i = 1; i <= 20; i++) {
+    const comment = document.createElement('article');
+    comment.className = 'comment';
+    comment.innerHTML = `<strong>@viewer${i}</strong><p>This is sample comment ${i}, used to check wrapping, scrolling, and native event handlers.</p><button class="reply">Reply</button><div class="reply-box" hidden><textarea aria-label="Reply text"></textarea></div>`;
+    document.querySelector('#threads').append(comment);
+  }
+  for (let i = 1; i <= 6; i++) {
+    const card = document.createElement('div');
+    card.className = 'recommendation';
+    card.innerHTML = `<div class="thumbnail"></div><div><strong>Recommended video ${i}</strong><p>Example channel · 12K views</p></div>`;
+    document.querySelector('#recommendations').append(card);
+  }
+  // Attach listeners before the extension moves their native parent node.
+  document.querySelectorAll('.reply').forEach(button => button.addEventListener('click', () => {
+    button.nextElementSibling.hidden = !button.nextElementSibling.hidden;
+  }));
+  document.querySelector('#sort').addEventListener('click', event => {
+    event.target.textContent = event.target.textContent === 'Sort by' ? 'Newest first' : 'Sort by';
+  });
+</script>
+</html>

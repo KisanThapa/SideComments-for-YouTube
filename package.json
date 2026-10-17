@@ -1,0 +1,17 @@
+{
+  "name": "sidecomments-for-youtube",
+  "version": "1.2.0",
+  "description": "Comments beside your video. Recommendations below.",
+  "private": true,
+  "scripts": {
+    "test": "node tests/browser.mjs",
+    "test:live": "node tests/live-smoke.mjs",
+    "check": "node --check content.js && node --check popup.js && node --check tests/browser.mjs && node --check tests/live-smoke.mjs && node --check scripts/store-assets.mjs",
+    "package": "python3 scripts/package.py",
+    "assets": "node scripts/store-assets.mjs",
+    "screenshots": "node tests/live-smoke.mjs --store",
+    "check:store": "python3 scripts/check-store.py"
+  },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "playwright": "1.62.1" }
+}

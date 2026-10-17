@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SideComments for YouTube</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#ff0033"/><path d="M8 9h16v11H14l-5 4v-4H8z" fill="white"/><path d="M17 12v5m3-5v5" stroke="#ff0033" stroke-width="2"/></svg>
+    <div><h1>SideComments for YouTube</h1><p>Comments beside. Recommendations below.</p></div>
+  </header>
+  <label class="setting" for="enabled"><span>Comments on the right</span><input type="checkbox" id="enabled" role="switch" disabled></label>
+  <p id="status" role="status">Loading preference…</p>
+  <div class="layout" aria-hidden="true"><div class="video">VIDEO</div><div class="comments">COMMENTS</div><div class="recommendations">RECOMMENDATIONS</div></div>
+  <footer>Normal + theater mode<br>On narrow windows, YouTube’s usual layout returns.<br><a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="mailto:kisanthapa33@gmail.com">Support</a></footer>
+  <script src="popup.js"></script>
+</body>
+</html>
