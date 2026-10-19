@@ -1,4 +1,4 @@
-# Privacy practices — dashboard draft for version 1.2.0
+# Privacy practices — dashboard draft for version 1.2.1
 
 Based on the inspected packaged source. Recheck these answers if functionality,
 permissions, analytics, or network behavior changes.

@@ -29,6 +29,13 @@
   .recommendation p { color: #777; }
   #extra { margin-bottom: 15px; padding: 14px; background: #eee; border-radius: 12px; }
   #related-skeleton { display: none; }
+  /* Keep the legacy background token white to exercise the extension's dark
+     fallback independently of YouTube's changing custom-property names. */
+  html[dark] body { background: #0f0f0f; color: #f1f1f1; }
+  html[dark] header { background: #0f0f0f; border-color: #333; }
+  html[dark] #description, html[dark] #extra, html[dark] button { background: #272727; color: #f1f1f1; }
+  html[dark] textarea { color: #f1f1f1; }
+  html[dark] .comment { border-color: #333; }
   @media (max-width: 999px) { #columns { display: block; } #secondary { width: 100%; } }
 </style>
 <header>YouTube <span>LOCAL TEST FIXTURE · no live video or comments</span></header>

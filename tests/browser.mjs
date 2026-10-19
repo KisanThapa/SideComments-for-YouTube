@@ -54,6 +54,30 @@ try {
     document.querySelector("#primary #related.ytcs-related"));
   passed("real extension loads and swaps normal-mode sections");
   await page.screenshot({ path: path.join(output, "normal.png") });
+  const theme = () => page.locator(".ytcs-comments-panel").evaluate(el => ({
+    background: getComputedStyle(el).backgroundColor,
+    text: getComputedStyle(el).color,
+    scheme: getComputedStyle(el).colorScheme,
+    overflow: getComputedStyle(el).overflowY
+  }));
+  await page.emulateMedia({ colorScheme: "dark" });
+  assert.equal((await theme()).background, "rgb(255, 255, 255)");
+  assert.equal((await theme()).scheme, "light");
+  passed("YouTube light theme stays light even when the system prefers dark");
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.evaluate(() => document.documentElement.setAttribute("dark", ""));
+  assert.deepEqual(await theme(), {
+    background: "rgb(15, 15, 15)", text: "rgb(241, 241, 241)", scheme: "dark", overflow: "auto"
+  });
+  await page.screenshot({ path: path.join(output, "dark-normal.png") });
+  await page.evaluate(() => document.documentElement.style.setProperty("--yt-spec-base-background", "initial"));
+  assert.equal((await theme()).background, "rgb(15, 15, 15)");
+  await page.evaluate(() => document.documentElement.style.removeProperty("--yt-spec-base-background"));
+  passed("YouTube dark theme has readable panel colors with stale or missing legacy tokens, independent of system preference");
+  await page.evaluate(() => document.documentElement.removeAttribute("dark"));
+  assert.equal((await theme()).background, "rgb(255, 255, 255)");
+  assert.equal((await theme()).scheme, "light");
+  passed("theme changes apply immediately without reloading or replacing comments");
   await page.getByRole("button", { name: "Sort by", exact: true }).click();
   assert.equal(await page.locator("#sort").textContent(), "Newest first");
   await page.getByRole("button", { name: "Reply", exact: true }).first().click();
@@ -66,6 +90,10 @@ try {
   await page.waitForFunction(() => document.querySelector("#full-bleed-container").getBoundingClientRect().height > 0);
   await page.screenshot({ path: path.join(output, "theater.png") });
   assert.equal(await page.locator("#secondary ytd-comments#comments").count(), 1);
+  await page.evaluate(() => document.documentElement.setAttribute("dark", ""));
+  assert.equal((await theme()).background, "rgb(15, 15, 15)");
+  await page.screenshot({ path: path.join(output, "dark-theater.png") });
+  await page.evaluate(() => document.documentElement.removeAttribute("dark"));
   passed("theater mode keeps the full-width player and swapped sections below");
 
   await page.setViewportSize({ width: 800, height: 1000 });
@@ -79,7 +107,14 @@ try {
   passed("widening restores the swap");
 
   const popup = await context.newPage();
+  await popup.emulateMedia({ colorScheme: "dark" });
   await popup.goto(`chrome-extension://${id}/popup.html`);
+  assert.equal(await popup.locator("body").evaluate(el => getComputedStyle(el).backgroundColor), "rgb(24, 24, 24)");
+  assert.equal(await popup.locator("body").evaluate(el => getComputedStyle(el).color), "rgb(238, 238, 238)");
+  await popup.screenshot({ path: path.join(output, "dark-popup.png") });
+  await popup.emulateMedia({ colorScheme: "light" });
+  assert.equal(await popup.locator("body").evaluate(el => getComputedStyle(el).backgroundColor), "rgb(255, 255, 255)");
+  passed("popup follows light and dark system themes with readable foreground colors");
   const [privacy] = await Promise.all([
     popup.waitForEvent("popup"),
     popup.getByRole("link", { name: "Privacy", exact: true }).click()

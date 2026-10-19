@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.1
+
+- Match the comments panel background, text, border, and scrollbar to YouTube's
+  light or dark theme, including immediate theme switches without a reload.
+- Keep the dark panel readable when legacy YouTube background tokens are
+  missing or stale; preserve the boxed scrolling layout.
+
 ## 1.2.0
 
 - Restore the boxed comments panel with independent scrolling and limited height.

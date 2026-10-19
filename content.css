@@ -12,6 +12,19 @@ ytd-watch-flexy.ytcs-active .ytcs-comments-panel {
   border-radius: 12px;
   padding: 0 14px 16px;
   background: var(--yt-spec-base-background, #fff);
+  color: var(--yt-spec-text-primary, #0f0f0f);
+  color-scheme: light;
+}
+
+/* Follow YouTube's theme, which can differ from the operating system theme.
+   Explicit dark colors also cover missing or stale legacy YouTube tokens. */
+html[dark] ytd-watch-flexy.ytcs-active .ytcs-comments-panel,
+ytd-app[dark] ytd-watch-flexy.ytcs-active .ytcs-comments-panel {
+  background: #0f0f0f;
+  color: #f1f1f1;
+  border-color: rgba(255, 255, 255, .2);
+  scrollbar-color: #aaa transparent;
+  color-scheme: dark;
 }
 
 ytd-watch-flexy.ytcs-active .ytcs-comments-panel:focus-visible {

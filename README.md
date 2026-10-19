@@ -7,6 +7,8 @@ boxed, independently scrollable panel on the right and places recommendations
 below the video description. The panel stays height-limited as more comments
 load. Normal and theater mode are supported; narrow windows and fullscreen
 restore the original positions. A toolbar switch turns the layout on or off.
+The panel follows YouTube's light or dark theme, including theme changes without
+a reload. The popup follows the browser/system color preference.
 
 The content script starts early without a fixed scheduling delay. YouTube still
 controls when its comments and page containers become available. The extension
@@ -20,7 +22,7 @@ and alternative YouTube layout experiments are outside scope.
 - [Privacy dashboard answers](store/PRIVACY-ANSWERS.md)
 - [Privacy policy](privacy.html)
 - Store images: `store/assets/`
-- Upload ZIP: `dist/sidecomments-for-youtube-1.2.0.zip`
+- Upload ZIP: `dist/sidecomments-for-youtube-1.2.1.zip`
 
 The package is prepared locally. Publisher registration, contact verification,
 a public HTTPS URL for the privacy page, Dashboard settings, and Google's review
@@ -70,6 +72,7 @@ Optional commands:
 npm run assets       # Regenerate original icons and 440×280 promotional tile
 npm run screenshots  # Capture native YouTube screenshots at 1280×800
 npm run test:live     # Check live comment loading, theater mode, and resizing
+npm run test:live -- --dark  # Check YouTube's dark appearance
 ```
 
 `npm test` runs the real unpacked extension against synthetic HTML fixtures in a

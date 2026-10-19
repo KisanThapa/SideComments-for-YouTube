@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SideComments for YouTube",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Move YouTube™ comments to the right and recommendations below the video. Works in normal and theater mode.",
   "permissions": ["storage"],
   "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none';" },

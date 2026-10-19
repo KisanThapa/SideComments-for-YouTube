@@ -1,6 +1,6 @@
 # Chrome Web Store listing
 
-These fields describe version 1.2.0. Copy the text below into the corresponding
+These fields describe version 1.2.1. Copy the text below into the corresponding
 Developer Dashboard fields. No store item or public URL has been created yet.
 
 ## Name
@@ -24,6 +24,7 @@ Features:
   top, with comments on the right of the content beneath it.
 - A boxed comments panel that scrolls independently and keeps a limited height
   as YouTube loads more comments.
+- Light and dark appearances that follow YouTube's selected theme.
 - A toolbar switch to turn the layout on or off.
 - The original layout returns on narrow windows and in fullscreen.
 

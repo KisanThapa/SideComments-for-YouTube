@@ -16,10 +16,11 @@
    Complete registration, any required payment, publisher information, and
    contact verification. These account actions have not been performed.
 2. Host `privacy.html` at a public HTTPS URL. Use that URL in the privacy field.
-   A GitHub Pages site or another public static host can serve this file. A
-   repository/domain has not been supplied, so hosting is not configured yet.
+   A GitHub Pages site or another public static host can serve this file.
+   Enter the real hosted policy URL; source-code publication alone does not
+   configure that Dashboard field.
 3. Run `npm run check`, `npm test`, `npm run package`, and `npm run check:store`.
-   Upload `dist/sidecomments-for-youtube-1.2.0.zip` as a new item (or a higher
+   Upload `dist/sidecomments-for-youtube-1.2.1.zip` as a new item (or a higher
    version under the same item for future updates).
 4. Paste the listing and privacy text, upload the icon and images, and choose
    the Dashboard's category, visibility, and distribution settings.
@@ -74,6 +75,21 @@ repository metadata. Keep source tests and the lockfile for future updates.
 - Chrome did not activate extracted copies in a system temporary folder during
   this run; the successful extracted-package check used the project folder.
   Signed-in posting and GitHub Actions were not executed. Google review has not occurred.
+
+## Dark-theme update — October 18, 2026
+
+- Version 1.2.1: all 18 browser checks passed, including the extracted upload ZIP.
+  Added checks cover YouTube/system theme disagreement, missing or stale legacy
+  color tokens, immediate theme switches, dark theater mode, and popup colors.
+- Live YouTube: selected **Appearance → Dark theme** through YouTube's own menu
+  in a signed-out profile with the browser preferring light. The panel used dark
+  background and light text; scrolling loaded additional comments (20 to 40),
+  and theater mode and narrow-window restoration passed.
+- The live check waits for YouTube's appearance transition and comment refresh
+  before inspecting the panel. The panel height is checked against its CSS cap
+  because native loading placeholders can legitimately be shorter than that cap.
+- Syntax checks, whitespace checks, and local Web Store package checks passed.
+  The layout logic, permissions, and boxed scrolling behavior are unchanged.
 
 Official references:
 - [Prepare the ZIP](https://developer.chrome.com/docs/webstore/prepare)
